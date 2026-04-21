@@ -6,14 +6,17 @@ interface GlassCardProps {
     children: React.ReactNode;
     className?: string;
     onClick?: () => void;
+    style?: React.CSSProperties;
 }
 
-export function GlassCard({ children, className = "", onClick }: GlassCardProps) {
+export function GlassCard({ children, className = "", onClick, style }: GlassCardProps) {
+    // Note: We keep the name GlassCard for import compatibility, 
+    // but its styling is mapped to the standard Zapier card design.
     return (
         <div
             onClick={onClick}
-            className={`bg-white/60 backdrop-blur-xl border border-white/50 shadow-sm rounded-2xl transition-all duration-300 hover:shadow-md ${onClick ? "cursor-pointer hover:-translate-y-1" : ""
-                } ${className}`}
+            className={`card ${onClick ? "cursor-pointer" : ""} ${className}`}
+            style={style}
         >
             {children}
         </div>

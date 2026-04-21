@@ -12,7 +12,7 @@ import { ContactSection } from "@/components/ContactSection";
 
 export default function Home() {
   return (
-    <div className="min-h-screen font-sans selection:bg-blue-100 selection:text-blue-900">
+    <>
       <Navbar />
       <main>
         <Hero />
@@ -27,9 +27,21 @@ export default function Home() {
         <ContactSection />
       </main>
 
-      <footer className="py-8 text-center text-slate-400 text-sm mt-20 border-t border-slate-200/50 backdrop-blur-sm bg-white/30">
-        <p>&copy; {new Date().getFullYear()} Dr. N. Bharathiraja. All rights reserved.</p>
+      <footer style={{ backgroundColor: 'var(--zapier-black)', color: 'var(--cream-white)', padding: 'var(--spacing-64) var(--spacing-24)', marginTop: 'var(--spacing-80)' }}>
+        <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--spacing-24)' }}>
+          <div style={{ display: 'flex', gap: 'var(--spacing-16)' }}>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-icon">
+              LI
+            </a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="social-icon">
+              GH
+            </a>
+          </div>
+          <p className="caption" style={{ color: 'var(--sand)', margin: 0 }}>
+            &copy; {new Date().getFullYear()} Dr. N. Bharathiraja. All rights reserved.
+          </p>
+        </div>
       </footer>
-    </div>
+    </>
   );
 }

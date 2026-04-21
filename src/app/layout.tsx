@@ -1,11 +1,24 @@
 import type { Metadata } from "next";
-import { Lexend } from "next/font/google";
+import { Inter, Outfit, Lora } from "next/font/google";
 import "./globals.css";
 
-const lexend = Lexend({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-lexend",
+  variable: "--font-inter",
   display: "swap",
+});
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: "--font-outfit",
+  display: "swap",
+});
+
+const lora = Lora({
+  subsets: ["latin"],
+  variable: "--font-lora",
+  display: "swap",
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -19,8 +32,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={lexend.variable}>
-      <body className="antialiased bg-slate-50 text-slate-900 font-sans selection:bg-blue-100 selection:text-blue-900">
+    <html lang="en" className={`${inter.variable} ${outfit.variable} ${lora.variable}`}>
+      <body>
         {children}
       </body>
     </html>

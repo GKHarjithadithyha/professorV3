@@ -8,9 +8,10 @@ interface ButtonProps {
     children: React.ReactNode;
     href?: string;
     onClick?: () => void;
-    variant?: "primary" | "outline" | "glass";
+    variant?: "primary" | "dark" | "ghost" | "pill";
     className?: string;
     icon?: boolean;
+    style?: React.CSSProperties;
 }
 
 export function Button({
@@ -20,33 +21,32 @@ export function Button({
     variant = "primary",
     className = "",
     icon = false,
+    style,
 }: ButtonProps) {
-    const baseStyles =
-        "inline-flex items-center justify-center px-6 py-3 rounded-full font-medium transition-all duration-300 active:scale-95";
-
     const variants = {
-        primary: "bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-500/30 hover:shadow-blue-500/40",
-        outline: "border-2 border-blue-600/30 text-blue-700 hover:bg-blue-50 hover:border-blue-600/50",
-        glass: "bg-white/40 backdrop-blur-md border border-white/50 text-slate-800 hover:bg-white/60 shadow-sm hover:shadow-md",
+        primary: "btn-primary-orange",
+        dark: "btn-primary-dark",
+        ghost: "btn-ghost",
+        pill: "btn-pill",
     };
 
     const content = (
         <>
             {children}
-            {icon && <ArrowRight className="ml-2 w-4 h-4" />}
+            {icon && <ArrowRight className="icon-sm" />}
         </>
     );
 
     if (href) {
         return (
-            <Link href={href} className={`${baseStyles} ${variants[variant]} ${className}`}>
+            <Link href={href} className={`${variants[variant]} ${className}`} style={style}>
                 {content}
             </Link>
         );
     }
 
     return (
-        <button onClick={onClick} className={`${baseStyles} ${variants[variant]} ${className}`}>
+        <button onClick={onClick} className={`${variants[variant]} ${className}`} style={style}>
             {content}
         </button>
     );
