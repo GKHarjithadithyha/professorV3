@@ -1,5 +1,5 @@
 ---
-title: "About Dr. N. Bharathiraja"
+title: "About Me"
 subtitle: "Associate Professor & Researcher"
 ---
 

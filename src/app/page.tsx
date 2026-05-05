@@ -9,39 +9,50 @@ import { PatentsAndBooksSection } from "@/components/PatentsAndBooksSection";
 import { AwardsSection } from "@/components/AwardsSection";
 import { AcademicActivitiesSection } from "@/components/AcademicActivitiesSection";
 import { ContactSection } from "@/components/ContactSection";
+import { MobileAppShell } from "@/components/MobileAppShell";
+import { getMarkdownContent } from "@/lib/markdown";
 
-export default function Home() {
+export default async function Home() {
+  const about = await getMarkdownContent("about");
+  const research = await getMarkdownContent("research");
+
   return (
     <>
-      <Navbar />
-      <main>
-        <Hero />
-        <AboutSection />
-        <EducationSection />
-        <ExperienceSection />
-        <ResearchSection />
-        <PublicationsSection />
-        <PatentsAndBooksSection />
-        <AwardsSection />
-        <AcademicActivitiesSection />
-        <ContactSection />
-      </main>
+      <div className="mobile-shell">
+        <MobileAppShell aboutHtml={about.contentHtml} researchHtml={research.contentHtml} researchTitle={research.title} />
+      </div>
 
-      <footer style={{ backgroundColor: 'var(--zapier-black)', color: 'var(--cream-white)', padding: 'var(--spacing-64) var(--spacing-24)', marginTop: 'var(--spacing-80)' }}>
-        <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--spacing-24)' }}>
-          <div style={{ display: 'flex', gap: 'var(--spacing-16)' }}>
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-icon">
-              LI
-            </a>
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="social-icon">
-              GH
-            </a>
+      <div className="desktop-shell">
+        <Navbar />
+        <main id="top">
+          <Hero />
+          <AboutSection />
+          <EducationSection />
+          <ExperienceSection />
+          <ResearchSection />
+          <PublicationsSection />
+          <PatentsAndBooksSection />
+          <AwardsSection />
+          <AcademicActivitiesSection />
+          <ContactSection />
+        </main>
+
+        <footer style={{ backgroundColor: 'var(--zapier-black)', color: 'var(--cream-white)', padding: 'var(--spacing-64) var(--spacing-24)', marginTop: 'var(--spacing-80)' }}>
+          <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--spacing-24)' }}>
+            <div style={{ display: 'flex', gap: 'var(--spacing-16)' }}>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-icon">
+                LI
+              </a>
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="social-icon">
+                GH
+              </a>
+            </div>
+            <p className="caption" style={{ color: 'var(--sand)', margin: 0 }}>
+              &copy; {new Date().getFullYear()} Dr. N. Bharathiraja. All rights reserved.
+            </p>
           </div>
-          <p className="caption" style={{ color: 'var(--sand)', margin: 0 }}>
-            &copy; {new Date().getFullYear()} Dr. N. Bharathiraja. All rights reserved.
-          </p>
-        </div>
-      </footer>
+        </footer>
+      </div>
     </>
   );
 }

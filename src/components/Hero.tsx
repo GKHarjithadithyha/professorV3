@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "./Button";
 import { Container } from "./Container";
@@ -6,6 +8,30 @@ import { GlassCard } from "./GlassCard";
 import profile from "@/data/profile.json";
 
 export function Hero() {
+    const name = profile.name || "";
+    const [displayed, setDisplayed] = useState("");
+    const [isDeleting, setIsDeleting] = useState(false);
+
+    useEffect(() => {
+        let timeout: ReturnType<typeof setTimeout>;
+        const typingSpeed = isDeleting ? 60 : 120;
+
+        if (!isDeleting && displayed === name) {
+            timeout = setTimeout(() => setIsDeleting(true), 1400);
+        } else if (isDeleting && displayed === "") {
+            timeout = setTimeout(() => setIsDeleting(false), 600);
+        } else {
+            timeout = setTimeout(() => {
+                setDisplayed((prev) => {
+                    const next = isDeleting ? name.slice(0, prev.length - 1) : name.slice(0, prev.length + 1);
+                    return next;
+                });
+            }, typingSpeed);
+        }
+
+        return () => clearTimeout(timeout);
+    }, [displayed, isDeleting, name]);
+
     return (
         <section className="section" style={{ paddingTop: '120px', paddingBottom: '80px', borderBottom: 'none' }}>
             <Container>
@@ -18,7 +44,12 @@ export function Hero() {
                         <div className="flex-col-gap-16">
                             <h1 className="hero-xl">
                                 <span style={{ display: 'block', color: 'var(--dark-charcoal)' }}>Hello, I'm</span>
-                                <span style={{ color: 'var(--zapier-black)' }}>{profile.name}</span>
+                                <span aria-live="polite" style={{ color: 'var(--zapier-black)' }}>
+                                    <span className="typing-wrap">
+                                        <span className="typing-name" style={{ fontWeight: 700 }}>{displayed}</span>
+                                        <span className="typing-caret" aria-hidden>▌</span>
+                                    </span>
+                                </span>
                             </h1>
                             <p className="sub-heading-md" style={{ color: 'var(--dark-charcoal)' }}>
                                 {profile.designation} in {profile.department}
@@ -68,6 +99,18 @@ export function Hero() {
                         </GlassCard>
                     </div>
                 </div>
+
+                <style jsx>{`
+                    .typing-wrap { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+                    .typing-name { display: inline-block; min-width: 0; }
+                    .typing-caret { display: inline-block; color: var(--zapier-orange); animation: blink 0.8s steps(2, start) infinite; vertical-align: middle; }
+
+                    @keyframes blink { 50% { opacity: 0; } }
+
+                    @media (max-width: 768px) {
+                        .typing-caret { display: none; }
+                    }
+                `}</style>
             </Container>
         </section>
     );
