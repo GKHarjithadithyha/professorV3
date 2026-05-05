@@ -176,7 +176,7 @@ export function MobileAppShell({ aboutHtml, researchHtml, researchTitle }: Props
                         closeAll();
                         return;
                     }
-                    setActiveSection(section);
+                    setActiveSection(section as MobileSection);
                 }}
             />
 
@@ -251,7 +251,7 @@ export function MobileAppShell({ aboutHtml, researchHtml, researchTitle }: Props
                                             <article key={index} className="mobile-journal-card">
                                                 <div className="mobile-journal-card__header">
                                                     <div className="mobile-journal-card__title">{item.title}</div>
-                                                    <span className="mobile-journal-card__type">{item.type === "publication" ? "Publication" : item.type === "journal" ? "Journal" : item.type === "book" ? "Book" : "Project"}</span>
+                                                    <span className="mobile-journal-card__type">{item.type === "publication" ? "Publication" : item.type === "book" ? "Book" : "Project"}</span>
                                                 </div>
                                                 <div className="mobile-journal-card__description">{item.description}</div>
                                                 {item.metadata && (

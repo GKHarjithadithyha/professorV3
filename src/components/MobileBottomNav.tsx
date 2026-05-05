@@ -14,7 +14,7 @@ const links = [
 export type MobileNavKey = (typeof links)[number]["key"];
 
 type Props = {
-    activeSection: MobileNavKey | null;
+    activeSection: Exclude<MobileNavKey, "home"> | null;
     onSelect: (section: MobileNavKey) => void;
 };
 
